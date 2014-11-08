@@ -2,9 +2,9 @@ require 'rails_helper'
 
 feature 'User can visit static pages' do
   scenario 'Viewing the Home page' do
-    visit '/home'
+    visit root_path
 
-    expect(page).to have_content('Home')
+    expect(page).to have_content('Sample App')
   end
 
   scenario 'Viewing the About page' do
@@ -13,7 +13,7 @@ feature 'User can visit static pages' do
     expect(page).to have_content('About')
   end
 
-  scenario 'Viewing the Hekp page' do
+  scenario 'Viewing the Help page' do
     visit '/help'
 
     expect(page).to have_content('Help')
