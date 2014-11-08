@@ -19,4 +19,10 @@ feature 'User can visit static pages' do
     expect(page).to have_content('Help')
   end
 
+  scenario 'Viewing the Contact page' do
+    visit '/contact'
+
+    expect(page).to have_content('Contact')
+  end
+
 end
