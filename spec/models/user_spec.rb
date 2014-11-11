@@ -64,6 +64,13 @@ describe User do
     expect(duplicate_user).to be_invalid
   end
 
+  it 'validates email gets saved as lowecase' do
+    mixed_case_email = "FoO@exaMPlE.cOm"
+    @user.email = mixed_case_email
+    @user.save
+    expect(mixed_case_email.downcase).to eq(@user.reload.email)
+  end
+
   it 'validates password is not empty' do
     @user.password = nil
 
