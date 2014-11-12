@@ -1,17 +1,16 @@
 require 'rails_helper'
 
 feature "Visitor signs up" do
-  before { skip }
   scenario "with valid email and password" do
     sign_up_with 'Ivan', 'valid@example.com', 'password'
 
-    expect(page).to have_content('Sign out')
+    expect(page).to have_content('Ivan')
   end
 
-  scenario "witn invalid email" do
-    sign_up_with 'name', 'invalid_email', 'password'
+  scenario "with invalid password and email" do
+    sign_up_with 'Tom', 'invalid@test', 'pas'
 
-    expect(page).to have_content('Sign in')
+    expect(page).not_to have_content('Tom')
   end
 
 
@@ -20,7 +19,7 @@ feature "Visitor signs up" do
     fill_in 'Name', with: name
     fill_in 'Email', with: email
     fill_in 'Password', with: password
-    fill_in 'Password confirmation', with: password
+    fill_in 'Confirmation', with: password
     click_button 'Create my account'
   end
 end
