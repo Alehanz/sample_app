@@ -26,6 +26,7 @@ end
 group :test do
   gem 'rspec-rails'
   gem 'capybara'
+  gem 'shoulda-matchers', require: false
 end
 
 group :production do

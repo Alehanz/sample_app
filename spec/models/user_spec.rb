@@ -4,29 +4,17 @@ describe User do
   before(:each)do
     @user = User.new(name: "Ivan", email: "test@example.com", password: "pass99", password_confirmation: "pass99")
   end
-  
-  it 'validates password is at least 6 symbols' do
-    @user.password = @user.password_confirmation = "a" * 5
 
-    expect(@user).to be_invalid
-  end
-
-  it 'validates name is not empty' do
-    @user.name = ""
-
-    expect(@user).to be_invalid
-  end
-
-  it 'validates name is not too long' do
-    @user.name = "a" * 51
-
-    expect(@user).to be_invalid
-  end
-
-  it 'validates email is not empty' do
-    @user.email = ""
-
-    expect(@user).to be_invalid
+  describe "Validations" do
+    it { should validate_presence_of :name }
+    it { should ensure_length_of(:name).
+         is_at_most(50) }
+    it { should validate_presence_of :password }
+    it { should ensure_length_of(:password).
+         is_at_least(6) }
+    it { should validate_presence_of :email }
+    it { should validate_confirmation_of :password }
+    it { should validate_uniqueness_of :email }
   end
 
   it 'validates email is not too long' do
@@ -56,24 +44,10 @@ describe User do
     end
   end
 
-  it 'validates email uniqueness' do
-    duplicate_user = @user.dup
-    duplicate_user.email = @user.email.upcase
-    @user.save
-
-    expect(duplicate_user).to be_invalid
-  end
-
   it 'validates email gets saved as lowecase' do
     mixed_case_email = "FoO@exaMPlE.cOm"
     @user.email = mixed_case_email
     @user.save
     expect(mixed_case_email.downcase).to eq(@user.reload.email)
-  end
-
-  it 'validates password is not empty' do
-    @user.password = nil
-
-    expect(@user).to be_invalid
   end
 end
