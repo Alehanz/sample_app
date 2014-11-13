@@ -4,13 +4,13 @@ feature "Visitor signs up" do
   scenario "with valid email and password" do
     sign_up_with 'Ivan', 'valid@example.com', 'password'
 
-    expect(page).to have_content('Ivan')
+    expect(page).to have_content('Log out')
   end
 
   scenario "with invalid password and email" do
     sign_up_with 'Tom', 'invalid@test', 'pas'
 
-    expect(page).not_to have_content('Tom')
+    expect(page).not_to have_content('Log out')
   end
 
 
