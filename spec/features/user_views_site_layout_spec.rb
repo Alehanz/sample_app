@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 feature 'User views site layout' do
-  scenario 'properly' do
+  scenario 'all the links are there' do
     visit root_path
 
     expect(page).to have_link("Home", :href=>root_path)

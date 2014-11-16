@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe User do
   before(:each)do
-    @user = User.new(name: "Ivan", email: "test@example.com", password: "pass99", password_confirmation: "pass99")
+    @user = create(:user)
   end
 
   describe "Validations" do
