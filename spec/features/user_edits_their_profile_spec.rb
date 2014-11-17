@@ -2,10 +2,11 @@ require 'rails_helper'
 
 feature 'User edits their profile' do
   before(:each) do
-    @user = create(:user)
+    @user = create(:activated)
   end
 
   scenario 'edit with proper info' do
+    visit edit_account_activation_path(@user, @user.activation_token, email: @user.email)
     log_in(@user)
     visit edit_user_path(@user)
     

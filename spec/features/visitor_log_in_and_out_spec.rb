@@ -2,7 +2,7 @@ require 'rails_helper'
 
 feature "Visitor logs in and logs out" do
   before(:each) do
-    @user = create(:user)
+    @user = create(:activated)
   end
 
   scenario "valid email and password" do

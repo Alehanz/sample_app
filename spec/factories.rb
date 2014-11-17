@@ -8,6 +8,11 @@ FactoryGirl.define do
     factory :admin do
       admin true
     end
+
+    factory :activated do
+      activated true
+      activated_at Time.zone.now
+    end
   end
 
   factory :micropost do

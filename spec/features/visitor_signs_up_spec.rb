@@ -1,11 +1,15 @@
 require 'rails_helper'
 
 feature 'Visitor signs up' do
+  before(:each) do
+    @user = build(:activated)
+  end
 
   scenario 'with valid email and password' do
-    sign_up_with 'Ivan', 'valid@example.com', 'password'
+    sign_up_with 'Tom', 'validvalid@example.com', 'foobar'
 
-    expect(page).to have_content('Log out')
+    expect(page).to have_content('Please check your email
+                                 to activate your account')
   end
 
   scenario 'with invalid email' do
