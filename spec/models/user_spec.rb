@@ -1,11 +1,11 @@
 require 'rails_helper'
 
 describe User do
-  before(:each)do
+  before(:each) do
     @user = create(:user)
   end
 
-  describe "Validations" do
+  describe 'Validations' do
     it { should validate_presence_of :name }
     it { should ensure_length_of(:name).
          is_at_most(50) }
