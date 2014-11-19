@@ -2,7 +2,9 @@ require 'rails_helper'
 
 describe User do
   before(:each) do
-    @user = create(:user)
+    @user = create(:activated)
+    @user2 = create(:activated)
+    @user3 = create(:activated)
   end
 
   describe 'Validations' do
@@ -49,5 +51,54 @@ describe User do
     @user.email = mixed_case_email
     @user.save
     expect(mixed_case_email.downcase).to eq(@user.reload.email)
+  end
+
+  it 'validates not following a user' do
+    relationship = @user.following?(@user)
+
+    expect(relationship).to be_falsey
+  end
+
+  it 'validates following a user' do
+    @user.follow(@user2)
+
+    relationship = @user.following?(@user2)
+
+    expect(relationship).to be_truthy
+  end
+
+  it 'validates unfollowing a user' do
+    @user.follow(@user2)
+    @user.unfollow(@user2)
+
+    relationship = @user.following?(@user2)
+
+    expect(relationship).to be_falsey
+  end
+
+  it 'validates having followers' do
+    @user.follow(@user2)
+
+    relationship = @user2.followers.include?(@user)
+
+    expect(relationship).to be true
+  end
+
+  it 'validates the feed has the posts from followes user' do
+    @user.microposts.each do |post_following|
+      expect(@user2.feed).to include?(post_following)
+    end
+  end
+
+  it 'validates the feed has the posts from self' do
+    @user2.microposts.each do |post_self|
+      expect(@user2.feed).to include?(post_self)
+    end
+  end
+
+  it 'validates the feed does not have the posts from unfollowed user' do
+    @user3.microposts.each do |post_unfollowed|
+      expect(@user3.feed).not_to include?(post_unfollowed)
+    end
   end
 end

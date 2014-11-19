@@ -6,6 +6,7 @@ feature 'user posts microposts' do
     @user2 = create(:activated)
     @micropost = create(:micropost, :user => @user)
   end
+
   scenario 'user goes to the microposts page' do
     visit root_path
     log_in(@user)
